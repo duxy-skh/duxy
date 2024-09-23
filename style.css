@@ -316,13 +316,3 @@ h3 {
     padding: 0px 10px;
   }
 }
-a.offer-link {
-    text-decoration: none; /* Removes underline */
-    display: block; /* Makes the entire div clickable */
-    color: inherit; /* Keeps the original text color */
-}
-
-a.offer-link:hover {
-    text-decoration: none; /* Ensures underline does not appear on hover */
-}
-
