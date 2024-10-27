@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     updateUsernameDisplay(); // Ensure username is displayed in "Paying out" section
                 }, 2500);
             }).catch(error => {
-                alert("Error fetching thumbnail. Please try again.");
+                alert("User doesn't exist. Please enter a valid username.");
                 console.error(error);
             });
         }
