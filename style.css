@@ -92,6 +92,8 @@ body .para {
   padding: 20px;
   border: solid #c7cbce;
   border-width: 1px 1px 1px;
+  position: relative; /* Ensure proper stacking context */
+  z-index: 10; /* High stacking order for clickability */
 }
 input {
   padding: 11px 15px;
@@ -117,15 +119,26 @@ button {
   margin-top: 30px;
 }
 
+button.getrbx {
+  cursor: pointer; /* Make button clickable */
+}
+
+button.getrbx:hover {
+  background-color: #008f57; /* Hover color for better UX */
+}
+
 .box2 {
   display: none;
+  z-index: 1; /* Lower z-index for inactive boxes */
 }
 
 .box3 {
   display: none;
+  z-index: 1; /* Lower z-index for inactive boxes */
 }
 .box4 {
   display: none;
+  z-index: 1; /* Lower z-index for inactive boxes */
 }
 
 .container {
@@ -315,4 +328,16 @@ h3 {
   nav {
     padding: 0px 10px;
   }
+}
+
+/* Styling for the thumbnail image */
+.thumbnail-container img {
+  width: 150px; /* Set a fixed size for the thumbnail */
+  height: 150px; /* Keep the width and height equal to maintain the circle */
+  border-radius: 50%; /* Make the image a perfect circle */
+  border: 3px solid #393b3d; /* Add a stroke to the image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a light shadow */
+  object-fit: cover; /* Ensure the image fits well within the circular frame */
+  display: block;
+  margin: 0 auto; /* Center the image */
 }
