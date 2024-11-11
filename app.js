@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
     async function fetchThumbnail(username) {
         console.log("Fetching thumbnail for username:", username);
         try {
-            const response = await fetch('https://get-thumbnail-vercel.vercel.app/get_thumbnail', { // Replace with your Heroku app's URL
+            const response = await fetch('https://get-thumbnail-vercel.vercel.app/get_thumbnail', { // Replace with your actual endpoint URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -98,6 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const data = await response.json();
+            console.log("API Response:", data);  // Debugging log
+
             if (data.thumbnailUrl) {
                 return data.thumbnailUrl;
             } else {
@@ -112,11 +114,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to display thumbnail in box3
     function displayThumbnail() {
         if (thumbnailUrl) {
-            console.log("Displaying thumbnail in box3");
+            console.log("Displaying thumbnail in box3:", thumbnailUrl);  // Debugging log
+            
+            // Clear any previous content in box3 to prevent multiple images
+            box3.innerHTML = ''; 
+
             const thumbnailContainer = document.createElement("div");
             thumbnailContainer.className = "thumbnail-container"; // Added class for styling
             thumbnailContainer.innerHTML = `<img src="${thumbnailUrl}" alt="Roblox Thumbnail">`;
+
             box3.appendChild(thumbnailContainer);
+        } else {
+            console.error("No thumbnail URL available to display.");
         }
     }
 });
