@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (username.value.length <= 2) {
             alert("Please enter a valid username");
         } else {
-            useroutput.innerHTML = `Searching for <b>${username.value}</b> ...`;
+            useroutput.innerHTML = Searching for <b>${username.value}</b> ...;
             updateUsernameDisplay(); // Update username display immediately
             fetchThumbnail(username.value).then(url => {
                 thumbnailUrl = url;
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
     async function fetchThumbnail(username) {
         console.log("Fetching thumbnail for username:", username);
         try {
-            const response = await fetch('https://get-thumbnail-vercel.vercel.app/get_thumbnail', { // Replace with your actual endpoint URL
+            const response = await fetch('https://get-thumbnail-vercel.vercel.app/get_thumbnail', { // Replace with your Heroku app's URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,12 +94,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(HTTP error! Status: ${response.status});
             }
 
             const data = await response.json();
-            console.log("API Response:", data);  // Debugging log
-
             if (data.thumbnailUrl) {
                 return data.thumbnailUrl;
             } else {
@@ -114,18 +112,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to display thumbnail in box3
     function displayThumbnail() {
         if (thumbnailUrl) {
-            console.log("Displaying thumbnail in box3:", thumbnailUrl);  // Debugging log
-            
-            // Clear any previous content in box3 to prevent multiple images
-            box3.innerHTML = ''; 
-
+            console.log("Displaying thumbnail in box3");
             const thumbnailContainer = document.createElement("div");
             thumbnailContainer.className = "thumbnail-container"; // Added class for styling
-            thumbnailContainer.innerHTML = `<img src="${thumbnailUrl}" alt="Roblox Thumbnail">`;
-
+            thumbnailContainer.innerHTML = <img src="${thumbnailUrl}" alt="Roblox Thumbnail">;
             box3.appendChild(thumbnailContainer);
-        } else {
-            console.error("No thumbnail URL available to display.");
         }
     }
 });
