@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fetchThumbnail = async (username) => {
         console.log("Fetching thumbnail for username:", username);
         try {
-            const response = await fetch('https://your-vercel-app.vercel.app/api/get_thumbnail', {
+            const response = await fetch('https://getthumbnailvercel.vercel.app/api/get_thumbnail', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
