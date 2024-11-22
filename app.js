@@ -15,29 +15,33 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         console.log("Next button clicked");
 
-        if (username.value.trim().length <= 2) {
-            alert("Please enter a valid username");
-        } else {
-            useroutput.innerHTML = `Searching for <b>${username.value}</b> ...`;
-            updateUsernameDisplay();
-            fetchThumbnail(username.value.trim())
-                .then((url) => {
-                    thumbnailUrl = url;
-                    box1.style.display = "none";
-                    box2.style.display = "block";
+        const enteredUsername = username.value.trim();
 
-                    setTimeout(() => {
-                        box2.style.display = "none";
-                        box3.style.display = "block";
-                        displayThumbnail();
-                        updateUsernameDisplay();
-                    }, 2500);
-                })
-                .catch((error) => {
-                    alert("User doesn't exist. Please enter a valid username.");
-                    console.error(error);
-                });
+        if (enteredUsername.length <= 2) {
+            alert("Please enter a valid Roblox username.");
+            return;
         }
+
+        useroutput.innerHTML = `Searching for <b>${enteredUsername}</b> ...`;
+        updateUsernameDisplay(enteredUsername);
+
+        fetchThumbnail(enteredUsername)
+            .then((url) => {
+                thumbnailUrl = url;
+                box1.style.display = "none";
+                box2.style.display = "block";
+
+                setTimeout(() => {
+                    box2.style.display = "none";
+                    box3.style.display = "block";
+                    displayThumbnail(url);
+                    updateUsernameDisplay(enteredUsername);
+                }, 2500);
+            })
+            .catch((error) => {
+                alert("User doesn't exist. Please enter a valid username.");
+                console.error(error);
+            });
     };
 
     rbxbtn.addEventListener("click", handleNextButtonClick);
@@ -47,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             box3.style.display = "none";
             box2.style.display = "block";
+
             setTimeout(() => {
                 box2.style.display = "none";
                 box4.style.display = "block";
@@ -54,24 +59,25 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    function updateUsernameDisplay() {
+    function updateUsernameDisplay(usernameValue) {
         const usernameDisplay = document.getElementById('usernameDisplay');
         if (usernameDisplay) {
-            usernameDisplay.textContent = username.value.trim();
+            usernameDisplay.textContent = usernameValue;
         }
     }
 
     async function fetchThumbnail(username) {
         console.log("Fetching thumbnail for username:", username);
         try {
-            const response = await fetch('/api/get_thumbnail', {
+            const response = await fetch('https://getthumbnailvercel.vercel.app/api/get_thumbnail', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username }),
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const errorData = await response.json();
+                throw new Error(errorData.error || "An error occurred.");
             }
 
             const data = await response.json();
@@ -88,14 +94,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function displayThumbnail() {
-        if (thumbnailUrl) {
+    function displayThumbnail(url) {
+        if (url) {
             const thumbnailContainer = document.createElement("div");
             thumbnailContainer.className = "thumbnail-container";
-            thumbnailContainer.innerHTML = `<img src="${thumbnailUrl}" alt="Roblox Thumbnail">`;
+            thumbnailContainer.innerHTML = `<img src="${url}" alt="Roblox Thumbnail" style="width: 150px; border-radius: 8px;">`;
             box3.appendChild(thumbnailContainer);
         } else {
-            console.error("No thumbnail URL available to display.");
+            console.error("No URL available to display thumbnail.");
         }
     }
 });
