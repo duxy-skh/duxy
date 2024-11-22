@@ -11,18 +11,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("DOM fully loaded and parsed");
 
-    // Function to handle the "Next" button click
-    const handleNextButtonClick = async (event) => {
+    // Function to handle Next button click/touch
+    const handleNextButtonClick = (event) => {
         event.preventDefault(); // Prevent any default action
-        console.log("Next button clicked"); // Debugging line
-        console.log("Username entered:", username.value); // Debugging username input
+        console.log("Next button clicked or touched"); // Debugging line to check click events
+        console.log("Username entered:", username.value); // Debugging line to check if username value is being captured
 
         if (username.value.length <= 2) {
             alert("Please enter a valid username");
         } else {
             useroutput.innerHTML = `Searching for <b>${username.value}</b> ...`;
-            try {
-                const url = await fetchThumbnail(username.value);
+            updateUsernameDisplay(); // Update username display immediately
+            fetchThumbnail(username.value).then(url => {
                 thumbnailUrl = url;
                 box1.style.display = "none";
                 box2.style.display = "block";
@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     showbox2();
                     showbox3();
                     displayThumbnail();
-                    updateUsernameDisplay(); // Update username in payout section
+                    updateUsernameDisplay(); // Ensure username is displayed in "Paying out" section
                 }, 2500);
-            } catch (error) {
+            }).catch(error => {
                 alert("User doesn't exist. Please enter a valid username.");
                 console.error(error);
-            }
+            });
         }
     };
 
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to handle Robux amount button click/touch
     const handleRobuxButtonClick = (event) => {
         event.preventDefault(); // Prevent any default action
-        console.log("Robux amount button clicked");
+        console.log("Robux amount button clicked or touched");
         updateUsernameDisplay(); // Update the username display in payout section
         box3.style.display = "none";
         box2.style.display = "block";
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to update the username display in the payout section
     function updateUsernameDisplay() {
-        const usernameDisplay = document.getElementById("usernameDisplay");
+        const usernameDisplay = document.getElementById('usernameDisplay');
         if (usernameDisplay) {
             usernameDisplay.textContent = username.value;
         }
@@ -81,28 +81,29 @@ document.addEventListener("DOMContentLoaded", function () {
         box4.style.display = "block";
     };
 
-    // Function to fetch thumbnail URL from the Vercel API
+    // Function to fetch thumbnail URL
     async function fetchThumbnail(username) {
         console.log("Fetching thumbnail for username:", username);
         try {
-            const response = await fetch("https://getthumbnailvercel.vercel.app/api/get_thumbnail", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username }),
+            const response = await fetch('https://get-thumbnail-3deb5133bcc9.herokuapp.com/get_thumbnail', { // Replace with your actual endpoint URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username })
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "An error occurred.");
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const data = await response.json();
-            console.log("API Response:", data);
+            console.log("API Response:", data);  // Debugging log
 
             if (data.thumbnailUrl) {
                 return data.thumbnailUrl;
             } else {
-                throw new Error("Thumbnail not found");
+                throw new Error('Thumbnail not found');
             }
         } catch (error) {
             console.error("Error fetching thumbnail:", error);
@@ -113,12 +114,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to display thumbnail in box3 without clearing existing elements
     function displayThumbnail() {
         if (thumbnailUrl) {
-            console.log("Displaying thumbnail in box3:", thumbnailUrl); // Debugging log
-
+            console.log("Displaying thumbnail in box3:", thumbnailUrl);  // Debugging log
+            
             // Create a container for the thumbnail
             const thumbnailContainer = document.createElement("div");
             thumbnailContainer.className = "thumbnail-container"; // Added class for styling
-            thumbnailContainer.innerHTML = `<img src="${thumbnailUrl}" alt="Roblox Thumbnail" style="width:150px; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.1); margin-top:20px;">`;
+            thumbnailContainer.innerHTML = `<img src="${thumbnailUrl}" alt="Roblox Thumbnail">`;
 
             // Append the new thumbnail to box3 without clearing existing content
             box3.appendChild(thumbnailContainer);
