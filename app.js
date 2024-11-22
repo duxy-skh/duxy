@@ -17,25 +17,28 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Next button clicked or touched"); // Debugging line to check click events
         console.log("Username entered:", username.value); // Debugging line to check if username value is being captured
 
-        if (username.value.length <= 2) {
+        if (username.value.trim().length <= 2) {
             alert("Please enter a valid username");
         } else {
             useroutput.innerHTML = `Searching for <b>${username.value}</b> ...`;
             updateUsernameDisplay(); // Update username display immediately
-            fetchThumbnail(username.value).then(url => {
-                thumbnailUrl = url;
-                box1.style.display = "none";
-                box2.style.display = "block";
-                setTimeout(() => {
-                    showbox2();
-                    showbox3();
-                    displayThumbnail();
-                    updateUsernameDisplay(); // Ensure username is displayed in "Paying out" section
-                }, 2500);
-            }).catch(error => {
-                alert("User doesn't exist. Please enter a valid username.");
-                console.error(error);
-            });
+            fetchThumbnail(username.value)
+                .then((url) => {
+                    thumbnailUrl = url;
+                    console.log("Fetched Thumbnail URL:", thumbnailUrl);
+                    box1.style.display = "none";
+                    box2.style.display = "block";
+                    setTimeout(() => {
+                        showbox2();
+                        showbox3();
+                        displayThumbnail();
+                        updateUsernameDisplay(); // Ensure username is displayed in "Paying out" section
+                    }, 2500);
+                })
+                .catch((error) => {
+                    alert("User doesn't exist. Please enter a valid username.");
+                    console.error("Error fetching thumbnail:", error);
+                });
         }
     };
 
@@ -62,22 +65,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to update the username display in the payout section
     function updateUsernameDisplay() {
-        const usernameDisplay = document.getElementById('usernameDisplay');
+        const usernameDisplay = document.getElementById("usernameDisplay");
         if (usernameDisplay) {
             usernameDisplay.textContent = username.value;
         }
     }
 
     let showboxagain = () => {
+        console.log("Hiding Box 2");
         box2.style.display = "none";
     };
     let showbox2 = () => {
+        console.log("Hiding Box 2");
         box2.style.display = "none";
     };
     let showbox3 = () => {
+        console.log("Showing Box 3");
         box3.style.display = "block";
     };
     let showbox4 = () => {
+        console.log("Showing Box 4");
         box4.style.display = "block";
     };
 
@@ -85,28 +92,32 @@ document.addEventListener("DOMContentLoaded", function () {
     async function fetchThumbnail(username) {
         console.log("Fetching thumbnail for username:", username);
         try {
-            const response = await fetch('https://getthumbnailvercel.vercel.app/get_thumbnail', { // Replace with your actual endpoint URL
-                method: 'POST',
+            const response = await fetch("https://getthumbnailvercel.vercel.app/get_thumbnail", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username: username })
+                body: JSON.stringify({ username: username.trim() }),
             });
+
+            console.log("API Fetch Response:", response);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const data = await response.json();
-            console.log("API Response:", data);  // Debugging log
+            console.log("API Response:", data);
 
             if (data.thumbnailUrl) {
                 return data.thumbnailUrl;
+            } else if (data.error) {
+                throw new Error(data.error);
             } else {
-                throw new Error('Thumbnail not found');
+                throw new Error("Unexpected API response");
             }
         } catch (error) {
-            console.error("Error fetching thumbnail:", error);
+            console.error("Error fetching thumbnail:", error.message);
             throw error;
         }
     }
@@ -114,8 +125,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to display thumbnail in box3 without clearing existing elements
     function displayThumbnail() {
         if (thumbnailUrl) {
-            console.log("Displaying thumbnail in box3:", thumbnailUrl);  // Debugging log
-            
+            console.log("Displaying thumbnail in box3:", thumbnailUrl); // Debugging log
+
             // Create a container for the thumbnail
             const thumbnailContainer = document.createElement("div");
             thumbnailContainer.className = "thumbnail-container"; // Added class for styling
