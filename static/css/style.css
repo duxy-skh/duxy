@@ -1,0 +1,1123 @@
+@font-face {
+    font-family: 'Builder Sans';
+    src: url('/static/css/bulider-sans/BuilderSans-Thin.woff2') format('woff2'),
+         url('/static/css/bulider-sans/BuilderSans-Thin.woff') format('woff');
+    font-weight: 100; /* Thin */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Builder Sans';
+    src: url('/static/css/bulider-sans/BuilderSans-Light.woff2') format('woff2'),
+         url('/static/css/bulider-sans/BuilderSans-Light.woff') format('woff');
+    font-weight: 300; /* Light */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Builder Sans';
+    src: url('/static/css/bulider-sans/BuilderSans-Regular.woff2') format('woff2'),
+         url('/static/css/bulider-sans/BuilderSans-Regular.woff') format('woff');
+    font-weight: 400; /* Regular */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Builder Sans';
+    src: url('/static/css/bulider-sans/BuilderSans-Medium.woff2') format('woff2'),
+         url('/static/css/bulider-sans/BuilderSans-Medium.woff') format('woff');
+    font-weight: 500; /* Medium */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Builder Sans';
+    src: url('/static/css/bulider-sans/BuilderSans-SemiBold.woff2') format('woff2'),
+         url('/static/css/bulider-sans/BuilderSans-SemiBold.woff') format('woff');
+    font-weight: 600; /* SemiBold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Builder Sans';
+    src: url('/static/css/bulider-sans/BuilderSans-Bold.woff2') format('woff2'),
+         url('/static/css/bulider-sans/BuilderSans-Bold.woff') format('woff');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Builder Sans';
+    src: url('/static/css/bulider-sans/BuilderSans-ExtraBold.woff2') format('woff2'),
+         url('/static/css/bulider-sans/BuilderSans-ExtraBold.woff') format('woff');
+    font-weight: 800; /* ExtraBold */
+    font-style: normal;
+}
+#banner,
+#input-section,
+#recent-payouts {
+    margin-bottom: 30px; /* Add uniform spacing between sections */
+}
+
+.common-width {
+    width: 80%; /* Adjust this percentage as needed */
+    max-width: 800px; /* Set a maximum width */
+    margin: 0 auto; /* Center-align the element */
+}
+
+
+/* General Styles */
+body {
+    font-family: "Builder Sans", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F1F4F5;
+    color: #383B3D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Navigation Bar */
+nav {
+    margin-bottom: 20px; /* Adjust as needed */
+    background-color: #DEE1E3;
+    width: 100vw; /* Ensure full width of the viewport */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* Ensures proper positioning */
+    z-index: 10; /* Keeps it above other content */
+}
+/* Navigation Menu Item */
+nav .menu li a {
+    text-decoration: none; /* Remove default underline */
+    font-weight: 600;
+    font-size: 16px;
+    color: #383B3D; /* Default text color */
+    position: relative; /* Required for pseudo-element positioning */
+}
+
+/* Add underline effect on hover using pseudo-elements */
+nav .menu li a::before,
+nav .menu li a::after {
+    content: ""; /* Empty content for the pseudo-elements */
+    position: absolute;
+    bottom: -10px; /* Position below the text */
+    left: -5px; /* Extend a few pixels to the left */
+    right: -5px; /* Extend a few pixels to the right */
+    height: 2px; /* Thickness of the underline */
+    background-color: #383B3D; /* Match the text color */
+    width: 0; /* Start with no width */
+    transition: width 0.0s ease; /* Smooth animation for the underline */
+}
+
+nav .menu li a::before {
+    left: 0; /* Align to the left */
+}
+
+nav .menu li a::after {
+    right: 0; /* Align to the right */
+}
+
+/* Hover effect to grow the underline */
+nav .menu li a:hover::before,
+nav .menu li a:hover::after {
+    width: calc(100% + 10px); /* Extend the underline width */
+}
+
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Make sure it spans the full width */
+    max-width: 1200px; /* Optional: Restrict the content width on larger screens */
+    margin: 0 auto;
+    padding: 10px 20px; /* Space inside the navbar */
+    box-sizing: border-box; /* Includes padding in the width */
+}
+
+nav .logo img {
+    height: 30px;
+}
+
+/* Menu for larger screens */
+nav .menu {
+    list-style: none;
+    display: flex; /* Horizontal layout for larger screens */
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+nav .menu li {
+    display: inline-block;
+}
+
+nav .menu li a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    color: #383B3D;
+    transition: color 0.3s ease;
+}
+
+/* Burger Menu Button (hidden by default for large screens) */
+.burger-menu {
+    display: none; /* Only visible on smaller screens */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+.burger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #383B3D;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    nav .menu {
+        display: none; /* Hide menu by default */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Aligns below navbar */
+        right: 20px; /* Aligns to the right edge */
+        left: 20px; /* Added to ensure consistent centering */
+        background-color: #DEE1E3;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        width: calc(100% - 40px); /* Ensure consistent padding */
+        padding: 15px 0;
+    }
+
+    nav .menu.active {
+        display: flex; /* Show menu when burger menu is clicked */
+    }
+
+    nav .menu li {
+        margin: 10px 0;
+        text-align: center;
+    }
+    /* When active, keep the background as none */
+.burger-menu.active {
+    background: none; /* Ensure no green background */
+}
+
+    .burger-menu {
+        display: flex; /* Show burger menu */
+    }
+
+    .burger-menu.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .burger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger-menu.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Banner Section */
+#banner {
+    position: relative;
+    width: 100%;
+    max-width: 1200px; /* Align with the navbar's max width */
+    margin: 0 auto; /* Center horizontally */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#banner img {
+    display: block; /* Remove inline spacing */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 350px; /* Restrict height for desktop */
+}
+
+/* Banner Text */
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding: 10px;
+    width: 90%; /* Restrict text width */
+    max-width: 600px; /* Avoid overly wide text */
+}
+
+.banner-text h2 {
+    font-size: calc(1.5rem + 1vw); /* Responsive heading size */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.banner-text p {
+    font-size: calc(0.9rem + 0.5vw);
+    line-height: 1.4;
+}
+
+/* Adjustments for Mobile */
+@media (max-width: 768px) {
+    #banner {
+        max-height: 200px; /* Reduce banner height */
+    }
+
+    .banner-text {
+        width: 100%; /* Allow text to use full width */
+        padding: 5px 15px; /* Add breathing space */
+        font-size: calc(0.8rem + 1vw);
+        line-height: 1.3;
+    }
+
+    .banner-text h2 {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .banner-text p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Input Section */
+#input-section {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center-align the input and button */
+    gap: 15px; /* Add space between the input field and button */
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Input Section Title */
+#input-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Input Container */
+.input-container {
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto; /* Center horizontally */
+}
+
+/* Flaticon Search Icon */
+.input-container .fi-bs-member-search {
+    position: absolute;
+    top: 50%; /* Move to center */
+    left: 15px; /* Adjust position from the left */
+    transform: translateY(-50%); /* Align perfectly in the middle */
+    color: #aaa; /* Light gray */
+    font-size: 18px; /* Slightly larger for balance */
+    pointer-events: none; /* Prevent interaction */
+    z-index: 1; /* Ensure it appears above the input */
+}
+
+/* Input Field */
+.input-container input {
+    width: 100%;
+    height: 40px; /* Explicit height for better alignment */
+    padding: 10px 10px 10px 45px; /* Extra padding for the icon */
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9fafb;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input-container input::placeholder {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.input-container input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Button Styling */
+#fetch-button {
+    width: auto; /* Keep the button's default width */
+    max-width: 200px; /* Optional: Set a maximum width for the button */
+    background-color: #007bff;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#fetch-button:hover {
+    background-color: #0056b3;
+}
+
+/* Popup Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Ensure popup appears on top */
+}
+
+/* Popup Content */
+.popup-content {
+    background-color: #fff;
+    border-radius: 12px;
+    text-align: center;
+    padding: 30px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 300px;
+    width: 90%;
+}
+
+/* Flat Icon Error Icon */
+.fi-rr-octagon-xmark {
+    color: #e74c3c; /* Red color */
+    font-size: 60px; /* Make the icon bigger */
+    display: block; /* Center alignment helper */
+    margin: 0 auto 8px; /* Reduce bottom margin */
+    text-align: center; /* Ensure it aligns in the center */
+}
+
+/* Popup Title */
+.popup-content h2 {
+    font-size: 22px;
+    color: #333;
+    margin: 10px 0;
+}
+
+/* Popup Message */
+.popup-content p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* OK Button */
+.popup-content button {
+    background-color: #007bff; /* Blue button */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Loading Animation */
+/* Loader container */
+.logo-loader {
+    width: 100px;
+    height: 100px;
+    background-image: url('/static/images/robloxlogosmall.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: impact-shake-with-spin 1s ease-in-out, spin 2s linear infinite;
+    animation-delay: 0s; /* Start both animations immediately */
+    display: inline-block;
+}
+
+@keyframes impact-shake-with-spin {
+    0% {
+        transform: scale(1) translate(0, 0) rotate(0deg);
+    }
+    10% {
+        transform: scale(1.15) translate(-30px, 0) rotate(-25deg);
+        filter: blur(3px); /* Increased motion blur */
+    }
+    20% {
+        transform: scale(0.85) translate(20px, 0) rotate(25deg);
+        filter: blur(2px); /* Adjusted blur */
+    }
+    30% {
+        transform: scale(1.1) translate(-15px, 0) rotate(-15deg);
+        filter: blur(1px);
+    }
+    40% {
+        transform: scale(0.9) translate(10px, 0) rotate(15deg);
+        filter: blur(0px); /* Remove blur */
+    }
+    50% {
+        transform: scale(1) translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: scale(1) translate(0, 0) rotate(0deg);
+    }
+}
+
+/* Continuous spinning animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Avatar Section */
+#avatar-section {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#avatar-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#avatar-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+    margin-bottom: 10px;
+}
+
+#avatar-container p {
+    color: red;
+    font-weight: bold;
+}
+
+/* Selection Section */
+#selection-section {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 600px;
+    text-align: center;
+    width: 100%;
+}
+
+#selection-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.selection .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #DEE1E3;
+}
+
+.selection .row:last-child {
+    border-bottom: none;
+}
+
+.selection .row span {
+    font-size: 16px;
+    color: #383B3D;
+    font-weight: bold;
+    align-self: center;
+    text-align: center;
+}
+
+/* Robux Button Styling */
+.robux-button {
+    background-color: #FFFFFF;
+    color: #383B3D;
+    border: 1px solid #DEE1E3;
+    width: 120px; /* Set fixed width */
+    height: 50px; /* Set fixed height */
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center text and icon */
+    gap: 8px; /* Space between icon and text */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.robux-button img.robux-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.robux-button:hover {
+    background-color: #00AF6E;
+    color: #FFFFFF;
+}
+
+.robux-button.active {
+    background-color: #00AF6E;
+    color: #FFFFFF;
+    border-color: #008F5C;
+    transform: scale(1.05); /* Slight enlargement for active button */
+}
+
+/* General Button Styles */
+button {
+    background-color: #00AF6E; /* Green background */
+    color: #FFFFFF; /* White text */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: none; /* Remove unwanted shadows */
+}
+
+button:hover {
+    background-color: #008F5C; /* Darker green on hover */
+    transform: scale(1.05); /* Slight enlargement on hover */
+}
+
+/* Specific Styling for Join Group Button */
+#join-group-button {
+    display: inline-block; /* Ensure it behaves like other buttons */
+    margin: 0 auto; /* Center the button if inside a flex container */
+    box-shadow: none; /* Remove extra shadow for consistency */
+}
+
+/* Align Buttons */
+#button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between the buttons */
+}
+/* Loading Section */
+#loading-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    text-align: center;
+}
+
+#loading-section p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #383B3D;
+    margin-bottom: 20px;
+}
+
+/* Robux Loading Section */
+#robux-loading-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    text-align: center;
+}
+
+#robux-loading-section p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #383B3D;
+    margin-bottom: 20px;
+}
+
+.loader {
+    border: 8px solid #DEE1E3; /* Light gray */
+    border-top: 8px solid #007bff; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
+
+/* Verification Section */
+/* Verification Container */
+#verification-container {
+    background-color: #FFFFFF; /* Single background for the content */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Fill the section's width */
+    max-width: 800px; /* Restrict to a maximum size */
+    margin: 0; /* Align perfectly within the section */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+#verification-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #383B3D;
+}
+
+#verification-container p {
+    font-size: 16px;
+    color: #383B3D;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+#verification-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#verification-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #00AF6E;
+    margin-bottom: 15px;
+}
+
+#verification-username-text,
+#verification-robux-text {
+    font-size: 16px;
+    color: #383B3D;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#join-group-button {
+    background-color: #00AF6E;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#join-group-button:hover {
+    background-color: #008F5C;
+    transform: scale(1.05);
+}
+
+/* Default Logo */
+.logo {
+    display: block; /* Visible by default */
+}
+
+.logo img {
+    height: 30px;
+}
+
+/* Small Screen Logo */
+.logo-small {
+    display: none; /* Hidden by default */
+}
+
+.logo-small img {
+    height: 50px; /* Smaller logo size */
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 768px) {
+    .logo {
+        display: none; /* Hide the default logo on smaller screens */
+    }
+
+    .logo-small {
+        display: block; /* Show the small logo on smaller screens */
+    }
+
+    .burger-menu {
+        display: flex; /* Ensure burger menu is still visible */
+    }
+}
+
+/* General Box Styling */
+#input-section,
+#selection-section,
+#verification-section {
+    width: 80%; /* Match the banner's width */
+    margin: 20px auto; /* Center the box */
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    max-width: 800px; /* Restrict maximum width for larger screens */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Adjust Width for PC (Larger Screens) */
+@media (min-width: 1024px) {
+    #input-section,
+    #selection-section,
+    #verification-section {
+        width: 80%; /* Keep width consistent with the banner */
+        max-width: 800px; /* Match banner's max width */
+    }
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 1023px) {
+    #input-section,
+    #selection-section,
+    #verification-section {
+        width: 90%; /* Slightly narrower on smaller screens */
+        max-width: 90%; /* Override max width for smaller devices */
+    }
+
+    }/* Recent Payouts Section */
+#recent-payouts {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.carousel-card-wrapper {
+    min-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.payout-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 80%;
+}
+
+/* Ensure the link wraps the card without breaking the layout */
+.payout-link {
+    display: block;
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
+}
+
+.payout-link .payout-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%; /* Ensures the card fills the parent container */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.payout-link .payout-card:hover {
+    transform: translateY(-5px); /* Slight hover lift */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add hover shadow */
+}
+
+.payout-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #dee1e3;
+}
+
+.payout-username {
+    font-size: 18px;
+    font-weight: bold;
+    color: #383b3d;
+    margin: 10px 0;
+}
+
+.payout-amount {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically align text and icon */
+    justify-content: center; /* Center the content if needed */
+    gap: 5px; /* Add space between text and icon */    
+    font-size: 16px;
+    color: #555;
+}
+
+/* Navigation Buttons */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for visibility */
+    color: #FFFFFF; /* White color for the arrow icons */
+    border: none;
+    padding: 15px 20px; /* Increased padding for larger buttons */
+    border-radius: 50%; /* Rounded buttons */
+    cursor: pointer;
+    z-index: 1;
+    font-size: 24px; /* Larger font size for better visibility */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Slightly darker background on hover */
+    transform: translateY(-50%) scale(1.1); /* Add a slight zoom effect */
+}
+
+.prev {
+    left: 15px; /* Adjust the left position */
+}
+
+.next {
+    right: 15px; /* Adjust the right position */
+}
+/* Responsive Design */
+@media (min-width: 768px) {
+    .carousel-card-wrapper {
+        flex: 0 0 33.33%; /* Show three cards on larger screens */
+    }
+}
+
+/* Title Styles */
+#recent-payouts .section-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #383b3d;
+  text-align: center; /* Center-align the text */
+  margin: 0 auto 20px; /* Add 20px of space below the title */
+  padding: 0; /* Optional: Reset any unwanted padding */
+}
+
+/* Payout Cards Layout */
+.payouts-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allows cards to wrap into rows */
+  gap: 20px; /* Even spacing between cards */
+}
+
+/* Card Styles */
+.payout-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: calc(33.333% - 20px); /* Fit 3 cards per row */
+  transition: transform 0.3s ease; /* Optional hover effect */
+}
+
+.payout-card:hover {
+  transform: translateY(-5px); /* Slight elevation on hover */
+}
+
+/* Avatar Styles */
+.payout-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 3px solid #dee1e3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Username Styles */
+.payout-username {
+  font-size: 18px;
+  font-weight: bold;
+  color: #383b3d;
+  margin: 10px 0;
+}
+
+/* Amount Styles */
+.payout-amount {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Responsive Styles for Small Screens (Phones) */
+@media (max-width: 767px) {
+  #recent-payouts {
+    margin: 30px auto;
+    padding: 10px;
+  }
+
+  .payouts-container {
+    flex-direction: column; /* Stack cards vertically */
+    gap: 15px;
+  }
+
+  .payout-card {
+    width: 75%; /* Occupy 75% of the screen width */
+    margin: 0 auto; /* Center-align the cards */
+  }
+
+  .payout-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .payout-username {
+    font-size: 16px;
+  }
+
+  .payout-amount {
+    font-size: 14px;
+  }
+}
+
+#verification-robux {
+    display: inline-flex; /* Use flexbox for inline alignment */
+    align-items: center; /* Vertically center the icon and text */
+    gap: 5px; /* Space between the icon and the number */
+}
+
+.small-robux-icon {
+    width: 20px; /* Adjust size of the icon */
+    height: 20px;
+}
+
+/* Notification Popup Fade Out Transition */
+.popup-container {
+    position: fixed;
+    bottom: 50px; /* Keep it above the footer */
+    right: 20px;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.8; /* 80% transparency for the entire notification */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* Added fade-out and slide transition */
+    transform: translateX(0);
+}
+
+.popup-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #007bff; /* Add a blue border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    margin-right: 10px; /* Add space between the avatar and text */    
+}
+
+.popup-container .popup-details {
+    flex-grow: 1;
+}
+
+.popup-container .popup-details h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.popup-container .popup-details p {
+    font-size: 14px;
+    margin: 5px 0 0;
+    color: #555;
+}
+
+/* Slide-in animation */
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.popup-container.fade-out {
+    opacity: 0;
+    transform: translateX(100px); /* Slide slightly to the right */
+}
+
+/* Footer */
+footer {
+    margin-top: auto; /* Push the footer to the bottom */
+    background-color: #DEE1E3;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #E0E0E0;
+    width: 100%;
+}
+
+footer .para {
+    font-size: 12px;
+    color: #383B3D;
+}
