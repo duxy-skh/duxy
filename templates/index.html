@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="/static/loading-favicon.png" type="image/png">
+  <title>Endless Refresh</title>
+  <script>
+    // Function to generate a random color
+    function randomColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // Change the background color on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.style.backgroundColor = randomColor();
+    });
+
+    // Automatically refresh the page every 5 seconds
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
+  </script>
+</head>
+<body>
+  <div class="refresh-container">
+    <h1 class="title">Refreshing the Page...</h1>
+    <div class="lds-ripple"><div></div><div></div></div>
+  </div>
+</body>
+</html>
