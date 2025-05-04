@@ -1,7 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+from visitor_log import visitor_log  # ✅ Import BEFORE app.run
+from dotenv import load_dotenv       # ✅ Optional: load .env vars
+import os
+
+load_dotenv()  # ✅ Loads .env values if using python-dotenv
 
 app = Flask(__name__)
+app.register_blueprint(visitor_log)  # ✅ Register the Blueprint early
 
 # Serve the main page (index.html)
 @app.route('/')
